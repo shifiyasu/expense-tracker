@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
+import 'presentation/screens/bottom_navbar.dart';
 import 'presentation/screens/home_screen.dart';
 
 void main() {
@@ -14,15 +15,14 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Demo',
-      
+      title: 'Wechi',
       theme: ThemeData(
         textTheme: GoogleFonts.plusJakartaSansTextTheme(
           Theme.of(context).textTheme,
         ),
         primarySwatch: Colors.blue,
       ),
-      home: const HomeScreen(),
+      home: const BottomNavbarScreen(),
     );
   }
 }
