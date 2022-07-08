@@ -1,10 +1,11 @@
+import 'package:expense_tracker/data/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-import 'presentation/screens/bottom_navbar.dart';
-import 'presentation/screens/home_screen.dart';
+import 'presentation/screens/bottom_navbar_screen.dart';
 
 void main() {
+  WidgetsFlutterBinding.ensureInitialized();
   runApp(const MyApp());
 }
 
@@ -20,7 +21,9 @@ class MyApp extends StatelessWidget {
         textTheme: GoogleFonts.plusJakartaSansTextTheme(
           Theme.of(context).textTheme,
         ),
-        primarySwatch: Colors.blue,
+        // primarySwatch: Colors.blue,
+        accentColor: kPrimaryGreen,
+        primaryColor: kPrimaryGreen,
       ),
       home: const BottomNavbarScreen(),
     );

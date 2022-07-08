@@ -1,4 +1,5 @@
 import 'package:expense_tracker/data/colors.dart';
+import 'package:expense_tracker/presentation/screens/add_new_record_screen.dart';
 import 'package:expense_tracker/presentation/screens/home_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_boxicons/flutter_boxicons.dart';
@@ -9,43 +10,46 @@ class BottomNavbarScreen extends StatelessWidget {
 
   List<Widget> _buildScreens() {
     return [
-      HomeScreen(),
-      HomeScreen(),
-      HomeScreen(),
-      HomeScreen(),
-      HomeScreen(),
+      const HomeScreen(),
+      const HomeScreen(),
+      const AddNewRecordScreen(),
+      const HomeScreen(),
+      const HomeScreen(),
     ];
   }
 
   List<PersistentBottomNavBarItem> _navBarsItems() {
     return [
       PersistentBottomNavBarItem(
-        icon: Icon(Boxicons.bx_home_smile),
+        icon: const Icon(Boxicons.bx_home_smile),
         title: ("Home"),
         activeColorPrimary: kPrimaryGreen,
         inactiveColorPrimary: kDarkGray,
       ),
       PersistentBottomNavBarItem(
-        icon: Icon(Boxicons.bx_stats),
+        icon: const Icon(Boxicons.bx_bar_chart),
         title: ("Stats"),
         activeColorPrimary: kPrimaryGreen,
         inactiveColorPrimary: kDarkGray,
       ),
       PersistentBottomNavBarItem(
-        icon: Icon(Boxicons.bx_plus, color: kWhite,),
+        icon: const Icon(
+          Boxicons.bx_plus,
+          color: kWhite,
+        ),
         title: ("Add"),
         activeColorPrimary: kPrimaryGreen,
         inactiveColorPrimary: kDarkGray,
       ),
       PersistentBottomNavBarItem(
-        icon: Icon(Boxicons.bx_wallet),
+        icon: const Icon(Boxicons.bx_wallet),
         title: ("Budget"),
         activeColorPrimary: kPrimaryGreen,
         inactiveColorPrimary: kDarkGray,
       ),
       PersistentBottomNavBarItem(
-        icon: Icon(Boxicons.bxs_user_circle),
-        title: ("Profile"),
+        icon: const Icon(Boxicons.bx_book_bookmark),
+        title: ("Articles"),
         activeColorPrimary: kPrimaryGreen,
         inactiveColorPrimary: kDarkGray,
       ),
@@ -54,13 +58,13 @@ class BottomNavbarScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    PersistentTabController _controller;
+    PersistentTabController controller;
 
-    _controller = PersistentTabController(initialIndex: 0);
+    controller = PersistentTabController(initialIndex: 0);
 
     return PersistentTabView(
       context,
-      controller: _controller, 
+      controller: controller,
       screens: _buildScreens(),
       items: _navBarsItems(),
       confineInSafeArea: true,
@@ -77,12 +81,12 @@ class BottomNavbarScreen extends StatelessWidget {
       ),
       popAllScreensOnTapOfSelectedTab: true,
       popActionScreens: PopActionScreensType.all,
-      itemAnimationProperties: ItemAnimationProperties(
+      itemAnimationProperties: const ItemAnimationProperties(
         // Navigation Bar's items animation properties.
         duration: Duration(milliseconds: 200),
         curve: Curves.ease,
       ),
-      screenTransitionAnimation: ScreenTransitionAnimation(
+      screenTransitionAnimation: const ScreenTransitionAnimation(
         // Screen transition animation on change of selected tab.
         animateTabTransition: true,
         curve: Curves.ease,

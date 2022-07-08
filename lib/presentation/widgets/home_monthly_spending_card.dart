@@ -11,6 +11,7 @@ class HomeMonthlySpendingCard extends StatelessWidget {
       height: MediaQuery.of(context).size.height * .25,
       // width: 40,
       decoration: const BoxDecoration(
+        color: kPrimaryGreen,
         borderRadius: BorderRadius.all(Radius.circular(20)),
         image: DecorationImage(
           fit: BoxFit.fitHeight,

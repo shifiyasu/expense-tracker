@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_boxicons/flutter_boxicons.dart';
 
 import '../../data/colors.dart';
 
@@ -29,6 +30,7 @@ class HomeTopbar extends StatelessWidget {
                 "Shif A",
                 style: TextStyle(
                   fontSize: 20,
+                  fontWeight: FontWeight.w600,
                   color: kPrimaryGreen,
                 ),
               ),
@@ -36,7 +38,7 @@ class HomeTopbar extends StatelessWidget {
           ),
         ),
         const Icon(
-          Icons.settings,
+          Boxicons.bx_cog,
           color: kDarkGray,
         )
       ],
