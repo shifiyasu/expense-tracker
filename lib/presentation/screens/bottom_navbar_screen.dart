@@ -6,6 +6,8 @@ import 'package:flutter_boxicons/flutter_boxicons.dart';
 import 'package:persistent_bottom_nav_bar/persistent-tab-view.dart';
 
 class BottomNavbarScreen extends StatelessWidget {
+  static const routeName = "/bottom-navbar-screen";
+
   const BottomNavbarScreen({Key? key}) : super(key: key);
 
   List<Widget> _buildScreens() {

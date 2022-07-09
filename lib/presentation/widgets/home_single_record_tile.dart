@@ -82,7 +82,7 @@ class HomeSingleRecordTile extends StatelessWidget {
             children: [
               transaction.transactionCategory ==
                       TransactionCategory.entertainment
-                  ? const Icon(Boxicons.bx_smile)
+                  ? const Icon(Boxicons.bx_cool)
                   : transaction.transactionCategory ==
                           TransactionCategory.fooddrink
                       ? const Icon(Boxicons.bx_cookie)
@@ -92,6 +92,7 @@ class HomeSingleRecordTile extends StatelessWidget {
                           : transaction.transactionCategory ==
                                   TransactionCategory.income
                               ? const Icon(Boxicons.bx_arrow_to_top)
+                              
                               : transaction.transactionCategory ==
                                       TransactionCategory.investment
                                   ? const Icon(Boxicons.bx_trending_up)

@@ -1,4 +1,6 @@
 import 'package:expense_tracker/data/colors.dart';
+import 'package:expense_tracker/presentation/screens/add_new_record_screen.dart';
+import 'package:expense_tracker/presentation/screens/home_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -22,7 +24,9 @@ class MyApp extends StatelessWidget {
       //   colorScheme: theme.colorScheme.copyWith(secondary: myColor),
       // ),
       theme: ThemeData(
-        colorScheme: theme.colorScheme.copyWith(secondary: kPrimaryGreen,),
+        colorScheme: theme.colorScheme.copyWith(
+          secondary: kPrimaryGreen,
+        ),
         textTheme: GoogleFonts.plusJakartaSansTextTheme(
           Theme.of(context).textTheme,
         ),
@@ -30,6 +34,11 @@ class MyApp extends StatelessWidget {
         primaryColor: kPrimaryGreen,
       ),
       home: const BottomNavbarScreen(),
+      routes: {
+        HomeScreen.routeName: (context) => const HomeScreen(),
+        BottomNavbarScreen.routeName: (context) => const BottomNavbarScreen(),
+        AddNewRecordScreen.routeName: (context) => const AddNewRecordScreen(),
+      },
     );
   }
 }

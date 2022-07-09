@@ -4,6 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_boxicons/flutter_boxicons.dart';
 
 class AddNewRecordScreen extends StatefulWidget {
+  static const routeName = "/add-new-record-screen";
+
   const AddNewRecordScreen({Key? key}) : super(key: key);
 
   @override
@@ -14,7 +16,7 @@ class _AddNewRecordScreenState extends State<AddNewRecordScreen> {
   final _formKey = GlobalKey<FormState>();
 
   bool isExpense = true;
-  String? _dropdownValue;
+  TransactionCategory? _dropdownValue;
   final TextEditingController _titleController = TextEditingController();
   final TextEditingController _amountController = TextEditingController();
   final FocusNode _titleFocusNode = FocusNode();
@@ -98,7 +100,7 @@ class _AddNewRecordScreenState extends State<AddNewRecordScreen> {
                                   border: isExpense
                                       ? const Border(
                                           bottom: BorderSide(
-                                              width: 1.0, color: kPrimaryGreen),
+                                              width: 1.4, color: kPrimaryGreen),
                                         )
                                       : const Border(),
                                   // color: Colors.white,
@@ -110,7 +112,7 @@ class _AddNewRecordScreenState extends State<AddNewRecordScreen> {
                                     style: isExpense
                                         ? const TextStyle(
                                             fontSize: 16,
-                                            fontWeight: FontWeight.w500,
+                                            fontWeight: FontWeight.w600,
                                             color: kPrimaryGreen)
                                         : const TextStyle(
                                             fontSize: 16, color: kLightGray),
@@ -130,7 +132,7 @@ class _AddNewRecordScreenState extends State<AddNewRecordScreen> {
                                   border: !isExpense
                                       ? const Border(
                                           bottom: BorderSide(
-                                              width: 1.0, color: kPrimaryGreen),
+                                              width: 1.4, color: kPrimaryGreen),
                                         )
                                       : const Border(),
                                 ),
@@ -141,7 +143,7 @@ class _AddNewRecordScreenState extends State<AddNewRecordScreen> {
                                     style: !isExpense
                                         ? const TextStyle(
                                             fontSize: 16,
-                                            fontWeight: FontWeight.w500,
+                                            fontWeight: FontWeight.w600,
                                             color: kPrimaryGreen)
                                         : const TextStyle(
                                             fontSize: 16, color: kLightGray),
@@ -161,9 +163,10 @@ class _AddNewRecordScreenState extends State<AddNewRecordScreen> {
                                 decoration: BoxDecoration(
                                     borderRadius: BorderRadius.circular(20),
                                     color: Colors.white),
-                                child: DropdownButtonFormField<String>(
+                                child: DropdownButtonFormField<
+                                    TransactionCategory>(
                                   validator: (value) {
-                                    if (value == null || value.isEmpty) {
+                                    if (value == null) {
                                       return 'Please Select the Expense Category';
                                     }
                                     return null;
@@ -205,28 +208,64 @@ class _AddNewRecordScreenState extends State<AddNewRecordScreen> {
                                       ),
                                     ],
                                   ),
-                                  onChanged: (String? newValue) {
+                                  onChanged: (TransactionCategory? newValue) {
                                     setState(() {
                                       _dropdownValue = newValue!;
                                     });
                                     _titleFocusNode.requestFocus();
                                   },
-                                  items: [
-                                    'Food & Drink',
-                                    'Housing',
-                                    'Transport',
-                                    'Utilities',
-                                    'Shopping',
-                                    'Entertainment',
-                                    'Investment',
-                                    'Miscellaneous'
-                                  ].map<DropdownMenuItem<String>>(
-                                      (String value) {
-                                    return DropdownMenuItem<String>(
-                                      value: value,
-                                      child: Text(value),
-                                    );
-                                  }).toList(),
+                                  items: const [
+                                    DropdownMenuItem(
+                                      value: TransactionCategory.fooddrink,
+                                      child: DropDownChild(
+                                          tileName: "Food & Drink",
+                                          tileIcon: Boxicons.bx_cookie),
+                                    ),
+                                    DropdownMenuItem(
+                                        value: TransactionCategory.housing,
+                                        child: DropDownChild(
+                                          tileName: "Housing",
+                                          tileIcon: Boxicons.bx_building_house,
+                                        )),
+                                    DropdownMenuItem(
+                                        value: TransactionCategory.transport,
+                                        child: DropDownChild(
+                                          tileName: "Transport",
+                                          tileIcon: Boxicons.bx_car,
+                                        )),
+                                    DropdownMenuItem(
+                                        value: TransactionCategory.utilities,
+                                        child: DropDownChild(
+                                          tileName: "Utilities",
+                                          tileIcon: Boxicons.bx_wrench,
+                                        )),
+                                    DropdownMenuItem(
+                                        value: TransactionCategory.shopping,
+                                        child: DropDownChild(
+                                          tileName: "Shopping",
+                                          tileIcon: Boxicons.bx_shopping_bag,
+                                        )),
+                                    DropdownMenuItem(
+                                        value:
+                                            TransactionCategory.entertainment,
+                                        child: DropDownChild(
+                                          tileName: "Entertainment",
+                                          tileIcon: Boxicons.bx_cool,
+                                        )),
+                                    DropdownMenuItem(
+                                        value: TransactionCategory.investment,
+                                        child: DropDownChild(
+                                          tileName: "Investment",
+                                          tileIcon: Boxicons.bx_trending_up,
+                                        )),
+                                    DropdownMenuItem(
+                                        value:
+                                            TransactionCategory.miscellaneous,
+                                        child: DropDownChild(
+                                          tileName: "Miscellaneous",
+                                          tileIcon: Boxicons.bx_ghost,
+                                        )),
+                                  ],
                                 ),
                               ),
                             )
@@ -241,7 +280,6 @@ class _AddNewRecordScreenState extends State<AddNewRecordScreen> {
                           controller: _titleController,
                           onFieldSubmitted: (String value) {
                             _amountFocusNode.requestFocus();
-                            print(value);
                           },
                           cursorColor: kPrimaryGreen,
                           validator: (value) {
@@ -322,9 +360,16 @@ class _AddNewRecordScreenState extends State<AddNewRecordScreen> {
                               if (_formKey.currentState!.validate()) {
                                 // If the form is valid, display a snackbar. In the real world,
                                 // you'd often call a server or save the information in a database.
-                                // print(_titleController.text);
-                                // print(double.parse(_amountController.text));
-                                // print(_dropdownValue);
+
+                                Transaction(
+                                    transactionCategory: isExpense
+                                        ? _dropdownValue!
+                                        : TransactionCategory.income,
+                                    description: _titleController.text,
+                                    amount: _amountController.text,
+                                    dateTime: DateTime.now());
+                                
+
                                 // ScaffoldMessenger.of(context).showSnackBar(
                                 //   const SnackBar(
                                 //       content: Text('Processing Data')),
@@ -352,6 +397,32 @@ class _AddNewRecordScreenState extends State<AddNewRecordScreen> {
           ),
         ),
       ),
+    );
+  }
+}
+
+class DropDownChild extends StatelessWidget {
+  final IconData tileIcon;
+  final String tileName;
+  const DropDownChild({
+    Key? key,
+    required this.tileIcon,
+    required this.tileName,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      children: [
+        Icon(
+          tileIcon,
+          color: kDarkGray,
+        ),
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 20.0),
+          child: Text(tileName),
+        ),
+      ],
     );
   }
 }

@@ -6,6 +6,7 @@ import 'package:expense_tracker/presentation/widgets/home_topbar.dart';
 import "package:flutter/material.dart";
 
 class HomeScreen extends StatefulWidget {
+  static const routeName = "/home-screen";
   const HomeScreen({Key? key}) : super(key: key);
 
   @override
