@@ -15,14 +15,18 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
+    final ThemeData theme = ThemeData();
     return MaterialApp(
       title: 'Wechi',
+      // theme: theme.copyWith(
+      //   colorScheme: theme.colorScheme.copyWith(secondary: myColor),
+      // ),
       theme: ThemeData(
+        colorScheme: theme.colorScheme.copyWith(secondary: kPrimaryGreen,),
         textTheme: GoogleFonts.plusJakartaSansTextTheme(
           Theme.of(context).textTheme,
         ),
         // primarySwatch: Colors.blue,
-        accentColor: kPrimaryGreen,
         primaryColor: kPrimaryGreen,
       ),
       home: const BottomNavbarScreen(),
