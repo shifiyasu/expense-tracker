@@ -7,14 +7,13 @@ import '../../data/colors.dart';
 import '../../models/transaction.dart';
 
 class HomeSingleRecordTile extends StatelessWidget {
-  final Transaction transaction;
-  const HomeSingleRecordTile({Key? key, required this.transaction})
+  final Statement statement;
+  const HomeSingleRecordTile({Key? key, required this.statement})
       : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    String formattedDate =
-        DateFormat('yyyy-MM-dd').format(transaction.dateTime);
+    String formattedDate = DateFormat('yyyy-MM-dd').format(statement.dateTime);
 
     return Padding(
       padding: const EdgeInsets.only(bottom: 12.0),
@@ -34,16 +33,16 @@ class HomeSingleRecordTile extends StatelessWidget {
           trailing: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              transaction.transactionCategory == TransactionCategory.income
+              statement.statementCategory == StatementCategory.income
                   ? Text(
-                      "+\$${transaction.amount}",
+                      "+\$${statement.amount}",
                       style: const TextStyle(
                           fontWeight: FontWeight.w600,
                           fontSize: 16,
                           color: kPrimaryGreen),
                     )
                   : Text(
-                      "-\$${transaction.amount}",
+                      "-\$${statement.amount}",
                       style: const TextStyle(
                           fontWeight: FontWeight.w600,
                           fontSize: 16,
@@ -63,7 +62,7 @@ class HomeSingleRecordTile extends StatelessWidget {
                 Padding(
                   padding: const EdgeInsets.symmetric(vertical: 5.0),
                   child: Text(
-                    transaction.description,
+                    statement.description,
                     style: const TextStyle(
                         color: kTextColor,
                         fontSize: 16,
@@ -71,7 +70,7 @@ class HomeSingleRecordTile extends StatelessWidget {
                   ),
                 ),
                 Text(
-                  transaction.transactionCategory.toString().split(".")[1],
+                  statement.statementCategory.toString().split(".")[1],
                   style: const TextStyle(fontSize: 12, color: kPrimaryGreen),
                 )
               ],
@@ -80,30 +79,26 @@ class HomeSingleRecordTile extends StatelessWidget {
           leading: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              transaction.transactionCategory ==
-                      TransactionCategory.entertainment
+              statement.statementCategory == StatementCategory.entertainment
                   ? const Icon(Boxicons.bx_cool)
-                  : transaction.transactionCategory ==
-                          TransactionCategory.fooddrink
+                  : statement.statementCategory == StatementCategory.fooddrink
                       ? const Icon(Boxicons.bx_cookie)
-                      : transaction.transactionCategory ==
-                              TransactionCategory.housing
+                      : statement.statementCategory == StatementCategory.housing
                           ? const Icon(Boxicons.bx_building_house)
-                          : transaction.transactionCategory ==
-                                  TransactionCategory.income
+                          : statement.statementCategory ==
+                                  StatementCategory.income
                               ? const Icon(Boxicons.bx_arrow_to_top)
-                              
-                              : transaction.transactionCategory ==
-                                      TransactionCategory.investment
+                              : statement.statementCategory ==
+                                      StatementCategory.investment
                                   ? const Icon(Boxicons.bx_trending_up)
-                                  : transaction.transactionCategory ==
-                                          TransactionCategory.utilities
+                                  : statement.statementCategory ==
+                                          StatementCategory.utilities
                                       ? const Icon(Boxicons.bx_wrench)
-                                      : transaction.transactionCategory ==
-                                              TransactionCategory.shopping
+                                      : statement.statementCategory ==
+                                              StatementCategory.shopping
                                           ? const Icon(Boxicons.bx_shopping_bag)
-                                          : transaction.transactionCategory ==
-                                                  TransactionCategory.transport
+                                          : statement.statementCategory ==
+                                                  StatementCategory.transport
                                               ? const Icon(Boxicons.bx_car)
                                               : const Icon(Boxicons.bx_ghost),
             ],

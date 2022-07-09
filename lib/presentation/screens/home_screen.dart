@@ -1,9 +1,11 @@
+import 'package:expense_tracker/cubit/statement_cubit.dart';
 import 'package:expense_tracker/data/colors.dart';
 import 'package:expense_tracker/models/transaction.dart';
 import 'package:expense_tracker/presentation/widgets/home_monthly_spending_card.dart';
 import 'package:expense_tracker/presentation/widgets/home_single_record_tile.dart';
 import 'package:expense_tracker/presentation/widgets/home_topbar.dart';
 import "package:flutter/material.dart";
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class HomeScreen extends StatefulWidget {
   static const routeName = "/home-screen";
@@ -14,15 +16,15 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  List<Transaction> transactions = [
-    Transaction(
-      transactionCategory: TransactionCategory.fooddrink,
+  List<Statement> transactions = [
+    Statement(
+      statementCategory: StatementCategory.fooddrink,
       description: "Movie Night",
       amount: "498",
       dateTime: DateTime.now(),
     ),
-    Transaction(
-      transactionCategory: TransactionCategory.investment,
+    Statement(
+      statementCategory: StatementCategory.investment,
       description: "Cyrpto Purchase",
       amount: "2500",
       dateTime: DateTime.now(),
@@ -63,14 +65,22 @@ class _HomeScreenState extends State<HomeScreen> {
                   ),
                 ),
 
-                Flexible(
-                  child: ListView.builder(
-                    itemCount: transactions.length,
-                    itemBuilder: (BuildContext context, int index) {
-                      return HomeSingleRecordTile(
-                          transaction: transactions[index]);
-                    },
-                  ),
+                BlocBuilder<StatementCubit, StatementState>(
+                  builder: (context, statementState) {
+                    if (statementState is StatementLoaded) {
+                      return Flexible(
+                        child: ListView.builder(
+                          itemCount: statementState.statements.length,
+                          itemBuilder: (BuildContext context, int index) {
+                            return HomeSingleRecordTile(
+                                statement: statementState.statements[index]);
+                          },
+                        ),
+                      );
+                    }else{
+                    return Container();
+                    }
+                  },
                 )
               ],
             ),

@@ -1,6 +1,8 @@
+import 'package:expense_tracker/cubit/statement_cubit.dart';
 import 'package:expense_tracker/data/colors.dart';
 import 'package:expense_tracker/models/transaction.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_boxicons/flutter_boxicons.dart';
 
 class AddNewRecordScreen extends StatefulWidget {
@@ -16,7 +18,7 @@ class _AddNewRecordScreenState extends State<AddNewRecordScreen> {
   final _formKey = GlobalKey<FormState>();
 
   bool isExpense = true;
-  TransactionCategory? _dropdownValue;
+  StatementCategory? _dropdownValue;
   final TextEditingController _titleController = TextEditingController();
   final TextEditingController _amountController = TextEditingController();
   final FocusNode _titleFocusNode = FocusNode();
@@ -163,8 +165,8 @@ class _AddNewRecordScreenState extends State<AddNewRecordScreen> {
                                 decoration: BoxDecoration(
                                     borderRadius: BorderRadius.circular(20),
                                     color: Colors.white),
-                                child: DropdownButtonFormField<
-                                    TransactionCategory>(
+                                child:
+                                    DropdownButtonFormField<StatementCategory>(
                                   validator: (value) {
                                     if (value == null) {
                                       return 'Please Select the Expense Category';
@@ -202,13 +204,14 @@ class _AddNewRecordScreenState extends State<AddNewRecordScreen> {
                                       Text(
                                         "Select a Category",
                                         style: TextStyle(
-                                          fontSize: 18,
+                                          fontSize: 19,
                                           color: kLightGray,
                                         ),
                                       ),
                                     ],
                                   ),
-                                  onChanged: (TransactionCategory? newValue) {
+
+                                  onChanged: (StatementCategory? newValue) {
                                     setState(() {
                                       _dropdownValue = newValue!;
                                     });
@@ -216,51 +219,49 @@ class _AddNewRecordScreenState extends State<AddNewRecordScreen> {
                                   },
                                   items: const [
                                     DropdownMenuItem(
-                                      value: TransactionCategory.fooddrink,
+                                      value: StatementCategory.fooddrink,
                                       child: DropDownChild(
                                           tileName: "Food & Drink",
                                           tileIcon: Boxicons.bx_cookie),
                                     ),
                                     DropdownMenuItem(
-                                        value: TransactionCategory.housing,
+                                        value: StatementCategory.housing,
                                         child: DropDownChild(
                                           tileName: "Housing",
                                           tileIcon: Boxicons.bx_building_house,
                                         )),
                                     DropdownMenuItem(
-                                        value: TransactionCategory.transport,
+                                        value: StatementCategory.transport,
                                         child: DropDownChild(
                                           tileName: "Transport",
                                           tileIcon: Boxicons.bx_car,
                                         )),
                                     DropdownMenuItem(
-                                        value: TransactionCategory.utilities,
+                                        value: StatementCategory.utilities,
                                         child: DropDownChild(
                                           tileName: "Utilities",
                                           tileIcon: Boxicons.bx_wrench,
                                         )),
                                     DropdownMenuItem(
-                                        value: TransactionCategory.shopping,
+                                        value: StatementCategory.shopping,
                                         child: DropDownChild(
                                           tileName: "Shopping",
                                           tileIcon: Boxicons.bx_shopping_bag,
                                         )),
                                     DropdownMenuItem(
-                                        value:
-                                            TransactionCategory.entertainment,
+                                        value: StatementCategory.entertainment,
                                         child: DropDownChild(
                                           tileName: "Entertainment",
                                           tileIcon: Boxicons.bx_cool,
                                         )),
                                     DropdownMenuItem(
-                                        value: TransactionCategory.investment,
+                                        value: StatementCategory.investment,
                                         child: DropDownChild(
                                           tileName: "Investment",
                                           tileIcon: Boxicons.bx_trending_up,
                                         )),
                                     DropdownMenuItem(
-                                        value:
-                                            TransactionCategory.miscellaneous,
+                                        value: StatementCategory.miscellaneous,
                                         child: DropDownChild(
                                           tileName: "Miscellaneous",
                                           tileIcon: Boxicons.bx_ghost,
@@ -361,15 +362,17 @@ class _AddNewRecordScreenState extends State<AddNewRecordScreen> {
                                 // If the form is valid, display a snackbar. In the real world,
                                 // you'd often call a server or save the information in a database.
 
-                                Transaction(
-                                    transactionCategory: isExpense
+                                BlocProvider.of<StatementCubit>(context)
+                                    .addStatement(
+                                  Statement(
+                                    statementCategory: isExpense
                                         ? _dropdownValue!
-                                        : TransactionCategory.income,
+                                        : StatementCategory.income,
                                     description: _titleController.text,
                                     amount: _amountController.text,
-                                    dateTime: DateTime.now());
-                                
-
+                                    dateTime: DateTime.now(),
+                                  ),
+                                );
                                 // ScaffoldMessenger.of(context).showSnackBar(
                                 //   const SnackBar(
                                 //       content: Text('Processing Data')),

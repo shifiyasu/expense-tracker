@@ -1,19 +1,19 @@
-class Transaction {
-  final TransactionCategory transactionCategory;
+class Statement {
+  final StatementCategory statementCategory;
   final String description;
   // final Icons icon;
   final String amount;
   final DateTime dateTime;
 
-  Transaction(
-      {required this.transactionCategory,
+  Statement(
+      {required this.statementCategory,
       required this.description,
       // required this.icon,
       required this.amount,
       required this.dateTime});
 }
 
-enum TransactionCategory {
+enum StatementCategory {
   income,
   housing,
   fooddrink,
